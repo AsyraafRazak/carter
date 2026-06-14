@@ -166,7 +166,9 @@ async function history(req, res, next) {
 
 async function orderPdf(req, res, next) {
   try {
-    const items = await CartItemHistory.find({ user: req.userId, orderId: req.params.orderId })
+    const items = await CartItemHistory.find({
+      orderId: req.params.orderId
+    })
       .populate('voucher')
       .sort('timestamp');
 
@@ -174,7 +176,14 @@ async function orderPdf(req, res, next) {
       return res.status(404).json({ message: 'Order not found.' });
     }
 
-    writeVoucherPdf({ user: req.user, orderId: req.params.orderId, items, res });
+    writeVoucherPdf({
+      user: {
+        username: 'Customer'
+      },
+      orderId: req.params.orderId,
+      items,
+      res
+    });
   } catch (err) {
     next(err);
   }
