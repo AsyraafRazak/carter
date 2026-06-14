@@ -10,6 +10,28 @@ const errorHandler = require('./middleware/errorHandler');
 const app = express();
 const port = process.env.PORT || 5000;
 
+const seed = require('./seed/seed');
+
+app.get('/api/seed', async (req, res) => {
+  try {
+    const bcrypt = require('bcryptjs');
+    const User = require('./models/User');
+    const Category = require('./models/Category');
+    const Voucher = require('./models/Voucher');
+
+    const categories = await Category.insertMany([
+      { name: 'Food' },
+      { name: 'Travel' },
+      { name: 'Shopping' },
+      { name: 'Lifestyle' }
+    ]);
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 connectDB();
 configurePassport();
 
@@ -28,6 +50,29 @@ app.get('/api/config', (req, res) => {
   res.json({
     googleOAuthEnabled: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
   });
+});
+
+const Category = require('./models/Category');
+const Voucher = require('./models/Voucher');
+
+app.get('/api/seed-test', async (req, res) => {
+  try {
+    await Category.create({ name: 'Food' });
+
+    await Voucher.create({
+      title: 'Test Voucher',
+      description: 'Test Description',
+      terms: 'Test Terms',
+      image: 'https://via.placeholder.com/300',
+      points: 100,
+      limit: 10,
+      expiryDate: new Date(Date.now() + 86400000)
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.use('/api/auth', require('./routes/authRoutes'));
