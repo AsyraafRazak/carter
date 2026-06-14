@@ -1,0 +1,457 @@
+:root {
+  --bg: #f6f8fb;
+  --panel: #ffffff;
+  --text: #14213d;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.screen-center {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem clamp(1rem, 4vw, 2rem);
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 8px;
+  color: white;
+  background: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: 1;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.nav-links a.active {
+  color: var(--primary);
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.points {
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.page-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1,
+.login-hero h1,
+.details-panel h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.page-header p,
+.login-hero p,
+.details-panel p {
+  color: var(--muted);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.login-screen {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 440px);
+  gap: 2rem;
+  align-items: center;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.login-card {
+  border-radius: 8px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  padding: 0.3rem;
+  border-radius: 8px;
+  background: #eef2ff;
+  margin-bottom: 1rem;
+}
+
+.segmented button {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.7rem;
+  background: transparent;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.segmented button.active {
+  background: white;
+  color: var(--primary);
+}
+
+.form-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-stack label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 700;
+}
+
+.google-button,
+.download-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-weight: 800;
+  background: white;
+}
+
+.demo-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 240px) auto;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.home-stats div {
+  padding: 1rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.home-stats span,
+.muted,
+.section-title-row p,
+.cart-item small {
+  color: var(--muted);
+}
+
+.home-stats strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: -0.5rem 0 1.25rem;
+}
+
+.category-pills button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  background: white;
+  color: var(--muted);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.category-pills button.active {
+  border-color: var(--primary);
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.search-box,
+.search-box input {
+  width: 100%;
+}
+
+.voucher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.voucher-card {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.voucher-image {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+
+.voucher-card p {
+  min-height: 3rem;
+  color: var(--muted);
+}
+
+.voucher-meta,
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.details-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.details-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.details-panel,
+.summary-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  font-weight: 800;
+}
+
+.cart-layout,
+.profile-grid,
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.cart-items,
+.history-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cart-item,
+.history-item,
+.analytics-row {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) auto auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 64px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.total-points {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.history-item,
+.analytics-row {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+
+.admin-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  margin-bottom: 1rem;
+}
+
+.management-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-title-row h2,
+.section-title-row p {
+  margin: 0;
+}
+
+.inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-admin-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.category-admin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.voucher-dialog {
+  width: min(640px, calc(100% - 2rem));
+}
+
+.empty-state {
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  background: white;
+}
+
+.readable {
+  max-width: 780px;
+}
+
+@media (max-width: 820px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+  }
+
+  .login-screen,
+  .details-layout,
+  .cart-layout,
+  .profile-grid,
+  .admin-grid,
+  .management-grid,
+  .home-stats,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+}
