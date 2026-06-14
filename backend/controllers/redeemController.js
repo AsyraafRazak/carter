@@ -170,6 +170,7 @@ async function orderPdf(req, res, next) {
       orderId: req.params.orderId
     })
       .populate('voucher')
+      .populate('user')
       .sort('timestamp');
 
     if (!items.length) {
@@ -177,9 +178,7 @@ async function orderPdf(req, res, next) {
     }
 
     writeVoucherPdf({
-      user: {
-        username: 'Customer'
-      },
+      user: items[0].user,
       orderId: req.params.orderId,
       items,
       res
