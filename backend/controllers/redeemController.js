@@ -85,7 +85,7 @@ async function redeemCartWork(req, session) {
     orderId,
     totalPoints,
     remainingPoints: req.user.points,
-    pdfUrl: `/redeem/orders/${orderId}/pdf`
+    pdfUrl: `/api/redeem/orders/${orderId}/pdf`
   };
 }
 
@@ -146,7 +146,7 @@ async function redeemSingleVoucher(req, res, next) {
       orderId,
       totalPoints,
       remainingPoints: req.user.points,
-      pdfUrl: `/redeem/orders/${orderId}/pdf`
+      pdfUrl: `/api/redeem/orders/${orderId}/pdf`
     });
   } catch (err) {
     next(err);
@@ -168,7 +168,7 @@ async function orderPdf(req, res, next) {
   try {
     const items = await CartItemHistory.find({ user: req.userId, orderId: req.params.orderId })
       .populate('voucher')
-      .sort('createdAt');
+      .sort('timestamp');
 
     if (!items.length) {
       return res.status(404).json({ message: 'Order not found.' });
