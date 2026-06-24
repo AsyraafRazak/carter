@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
@@ -9,12 +10,12 @@ import { pdfUrl } from '../api/client';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
   const toast = useRef(null);
   const [username, setUsername] = useState(user?.username || '');
   const [password, setPassword] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [history, setHistory] = useState([]);
-  const [showAllHistory, setShowAllHistory] = useState(false);
 
   useEffect(() => {
     redeemApi.history().then(setHistory);
@@ -44,7 +45,7 @@ export default function ProfilePage() {
     }
   }
 
-  const displayedHistory = showAllHistory ? history : history.slice(0, 4);
+  const displayedHistory = history.slice(0, 4);
 
   return (
     <>
@@ -130,9 +131,9 @@ export default function ProfilePage() {
           {history.length > 4 && (
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
               <Button
-                label={showAllHistory ? 'See Less' : 'See More'}
-                icon={showAllHistory ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
-                onClick={() => setShowAllHistory(!showAllHistory)}
+                label="See More"
+                icon="pi pi-chevron-down"
+                onClick={() => navigate('/profile/redemption-history')}
                 text
               />
             </div>

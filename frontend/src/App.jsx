@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import AdminDashboardPage from './pages/AdminDashboardPage.jsx';
 import AdminVouchersPage from './pages/AdminVouchersPage.jsx';
 import TermsPage from './pages/TermsPage.jsx';
+import RedemptionHistoryPage from './pages/RedemptionHistoryPage.jsx';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/vouchers/:id" element={<VoucherDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/redemption-history" element={<RedemptionHistoryPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminDashboardPage />} />
