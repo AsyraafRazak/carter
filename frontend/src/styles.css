@@ -527,29 +527,65 @@ a {
 @media (max-width: 820px) {
   .topbar {
     display: grid !important;
-    grid-template-columns: auto 1fr; /* Memisahkan Logo (Kiri) dan Aksi (Kanan) */
-    align-items: center;
-    gap: 0.75rem;
+    grid-template-columns: 1fr auto; /* Kiri: Logo (ambil ruang fleksibel), Kanan: Actions */
+    row-gap: 0.75rem;
+    column-gap: 0.25rem;
+    padding: 0.8rem 0.75rem; /* Kurangkan padding tepi sedikit untuk skrin kecil */
+    overflow: hidden; /* Menghalang keseluruhan topbar daripada melimpah keluar */
   }
 
-  /* Menolak butang bahasa, troli, & user terus rapat ke penjuru kanan */
+  /* 2. Rapatkan elemen Actions dan elakkan susunan pecah */
   .topbar-actions {
+    grid-row: 1;
     grid-column: 2;
+    display: flex !important;
+    align-items: center;
     justify-content: flex-end;
+    gap: 0.4rem; /* Rapatkan gap antara ikon, teks & butang logout */
     margin-left: auto;
-    gap: 0.75rem;
+    max-width: 100%;
   }
 
-  /* Menolak menu navigasi (Vouchers, Profile, etc.) turun ke baris bawah penuh */
+  /* 3. OPTIMUMKAN komponen penukar bahasa PrimeReact pada mobile */
+  .topbar-actions .p-selectbutton .p-button {
+    padding: 0.25rem 0.4rem !important; /* Kecilkan lagi butang EN/BM */
+    font-size: 0.75rem !important;
+  }
+
+  /* 4. SEKAT teks nama atau mata daripada memanjang tanpa kawalan */
+  .topbar-actions .user-chip {
+    gap: 0.25rem;
+    font-size: 0.85rem; /* Kecilkan teks nama "aisha" */
+  }
+
+  /* Menyembunyikan nama pada skrin yang tersangat kecil (< 380px) jika masih padat */
+  @media (max-width: 380px) {
+    .topbar-actions .user-chip span:not(.points) {
+      display: none; /* Sembunyikan teks nama "aisha", kekalkan ikon/mata sahaja */
+    }
+  }
+
+  .points {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem; /* Kecilkan saiz tulisan "1500 mata" */
+    white-space: nowrap;
+  }
+
+  /* 5. Pastikan menu navigasi bawah tidak terjejas */
   .nav-links {
-    grid-column: 1 / span 2; /* Memakan ruang 1 baris penuh di bawah */
+    grid-row: 2;
+    grid-column: 1 / span 2;
     display: flex;
     justify-content: flex-start;
-    gap: 1rem;
-    padding-top: 0.5rem;
-    border-top: 1px dashed var(--border); /* Garis pemisah hiasan yang kemas */
+    gap: 1.2rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border);
     width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Skrol lancar di iOS */
   }
+
 
   /* Mengatasi pepijat Google Translate yang memaksa elemen pecah menegak */
   .skiptranslate {
