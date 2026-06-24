@@ -66,11 +66,17 @@ async function me(req, res) {
 
 async function updateProfile(req, res, next) {
   try {
-    const { username } = req.body;
+    const { username, password } = req.body;
     if (!username) {
       return res.status(400).json({ message: 'Username is required.' });
     }
     req.user.username = username;
+    if (password) {
+      if (password.length < 6) {
+        return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
+      }
+      req.user.password = await bcrypt.hash(password, 10);
+    }
     await req.user.save();
     res.json({ user: publicUser(req.user) });
   } catch (err) {
