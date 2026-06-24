@@ -75,6 +75,58 @@ a {
   color: var(--primary);
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.cart-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--muted);
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.cart-nav-link:hover {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+.cart-nav-link.active {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.cart-nav-link i {
+  font-size: 1.3rem;
+}
+
+.cart-nav-link .p-badge {
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  font-size: 0.65rem !important;
+  min-width: 1.15rem !important;
+  height: 1.15rem !important;
+  line-height: 1.15rem !important;
+  padding: 0 !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .user-chip {
   display: flex;
   align-items: center;
