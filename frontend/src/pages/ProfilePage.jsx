@@ -4,6 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { authApi, redeemApi } from '../api/resources';
 import { useAuth } from '../state/AuthContext.jsx';
+import { pdfUrl } from '../api/client';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
@@ -40,6 +41,19 @@ export default function ProfilePage() {
               <strong>{row.voucher?.title}</strong>
               <span>{row.couponCode}</span>
               <span>{new Date(row.timestamp).toLocaleString()}</span>
+              {row.orderId ? (
+                <a
+                  className="download-link"
+                  href={pdfUrl(`/api/redeem/orders/${row.orderId}/pdf`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', whiteSpace: 'nowrap' }}
+                >
+                  <i className="pi pi-file-pdf" /> PDF
+                </a>
+              ) : (
+                <span className="muted">N/A</span>
+              )}
             </article>
           ))}
           {!history.length && <div className="empty-state">No redemptions yet.</div>}
