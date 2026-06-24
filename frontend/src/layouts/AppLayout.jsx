@@ -122,19 +122,39 @@ export default function AppLayout() {
           <span className="brand-mark">CB</span>
           <span>Carter Rewards</span>
         </Link>
+        
         <nav className="nav-links">
           <NavLink to="/">Vouchers</NavLink>
-          <NavLink to="/cart">Cart {itemCount > 0 && <Badge value={itemCount} />}</NavLink>
           <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/terms">Terms</NavLink>
           {isAdmin && <NavLink to="/admin">Admin</NavLink>}
         </nav>
-        <div className="user-chip">
-          <span>{user?.username}</span>
-          <span className="points">{user?.points} pts</span>
-          <Button icon="pi pi-sign-out" rounded text aria-label="Log out" onClick={handleLogout} />
+
+        {/* 💡 GABUNGAN ELEMEN KANAN (Sebaris & Selari) */}
+        <div className="topbar-actions">
+          {/* ✨ INI BUTANG YANG KAU TERTINGGAL TU NYAH! */}
+          <SelectButton 
+            value={bahasa} 
+            options={opsiBahasa} 
+            onChange={handleTukarBahasa} 
+            unselectable={false}
+          />
+
+          {/* Ikon Troli dengan lencana bilangan barangan */}
+          <NavLink to="/cart" className="cart-nav-link" aria-label="Shopping Cart">
+            <i className="pi pi-shopping-cart"></i>
+            {itemCount > 0 && <Badge value={itemCount} severity="danger" />}
+          </NavLink>
+
+          {/* Cip Maklumat Pengguna */}
+          <div className="user-chip">
+            <span>{user?.username}</span>
+            <span className="points">{user?.points} pts</span>
+            <Button icon="pi pi-sign-out" rounded text aria-label="Log out" onClick={handleLogout} />
+          </div>
         </div>
       </header>
+      
       <main className="page-shell">
         <Outlet />
       </main>
