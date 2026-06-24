@@ -24,15 +24,20 @@ export default function AppLayout() {
         </Link>
         <nav className="nav-links">
           <NavLink to="/">Vouchers</NavLink>
-          <NavLink to="/cart">Cart {itemCount > 0 && <Badge value={itemCount} />}</NavLink>
           <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/terms">Terms</NavLink>
           {isAdmin && <NavLink to="/admin">Admin</NavLink>}
         </nav>
-        <div className="user-chip">
-          <span>{user?.username}</span>
-          <span className="points">{user?.points} pts</span>
-          <Button icon="pi pi-sign-out" rounded text aria-label="Log out" onClick={handleLogout} />
+        <div className="topbar-actions">
+          <NavLink to="/cart" className="cart-nav-link" aria-label="Shopping Cart">
+            <i className="pi pi-shopping-cart"></i>
+            {itemCount > 0 && <Badge value={itemCount} severity="danger" />}
+          </NavLink>
+          <div className="user-chip">
+            <span>{user?.username}</span>
+            <span className="points">{user?.points} pts</span>
+            <Button icon="pi pi-sign-out" rounded text aria-label="Log out" onClick={handleLogout} />
+          </div>
         </div>
       </header>
       <main className="page-shell">
