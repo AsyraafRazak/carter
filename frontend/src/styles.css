@@ -458,6 +458,65 @@ a {
     grid-template-columns: 72px minmax(0, 1fr);
   }
 
+  /* ==========================================
+     TAMBAHAN UNTUK MEJA/TABLE RESPONSIF (MERN)
+     ========================================== */
+
+  /* 1. Sembunyikan Header Desktop Table */
+  .responsive-table .p-datatable-thead {
+    display: none !important;
+  }
+
+  /* 2. Tukar setiap baris (row) menjadi bentuk Kad/Box */
+  .responsive-table .p-datatable-tbody > tr {
+    display: block !important;
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  }
+
+  /* 3. Susun setiap sel (cell) menegak ke bawah (Flexbox Row-Space-Between) */
+  .responsive-table .p-datatable-tbody > tr > td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border: none !important;
+    padding: 0.6rem 0 !important;
+    text-align: right !important;
+    width: 100% !important;
+  }
+
+  /* 4. Letak label nama column secara dinamik di sebelah kiri sel */
+  .responsive-table .p-datatable-tbody > tr > td::before {
+    content: attr(data-p-column-title);
+    font-weight: 700;
+    color: var(--muted);
+    text-align: left;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* 5. Kemaskan butang aksi (Edit/Delete) supaya rapat ke kanan */
+  .responsive-table .table-actions {
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  /* 6. Butang "New Voucher" penuhi skrin pada mobile */
+  .section-title-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center;
+  }
+
+  .section-title-row button {
+    width: 100% !important;
+  }
+
   .history-item {
     grid-template-columns: 1fr;
     gap: 0.5rem;
