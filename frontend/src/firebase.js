@@ -18,7 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const analytics = getAnalytics(app);
-const appleProvider = new OAuthProvider('apple.com');
+//const appleProvider = new OAuthProvider('apple.com');
 
 // 3. Setup Providers (Kod ni maintain sama)
 const googleProvider = new GoogleAuthProvider();
