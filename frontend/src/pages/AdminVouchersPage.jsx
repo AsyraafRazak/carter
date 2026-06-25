@@ -139,7 +139,7 @@ export default function AdminVouchersPage() {
             </div>
             <Button label="New voucher" icon="pi pi-plus" onClick={openNew} />
           </div>
-          <DataTable value={vouchers} paginator rows={8} responsiveLayout="scroll">
+          <DataTable value={vouchers} paginator rows={8} responsiveLayout="scroll" className="responsive-table">
             <Column field="title" header="Title" />
             <Column field="category_id.name" header="Category" />
             <Column field="points" header="Points" />

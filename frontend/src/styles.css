@@ -35,11 +35,35 @@ a {
   z-index: 10;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   padding: 0.8rem clamp(1rem, 4vw, 2rem);
   background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
+}
+
+/* Memastikan elemen di kanan sentiasa sebaris lurus */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0; /* Menghalang bahagian kanan daripada mengecil/kemek */
+}
+
+/* Mengecilkan saiz kotak penukar bahasa PrimeReact secara global */
+.topbar-actions .p-selectbutton .p-button {
+  padding: 0.35rem 0.7rem !important;
+  font-size: 0.8rem !important;
+}
+
+/* Jarak ekstra untuk cip maklumat pengguna */
+.topbar-actions .user-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .brand {
@@ -73,6 +97,58 @@ a {
 
 .nav-links a.active {
   color: var(--primary);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.cart-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--muted);
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.cart-nav-link:hover {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+.cart-nav-link.active {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.cart-nav-link i {
+  font-size: 1.3rem;
+}
+
+.cart-nav-link .p-badge {
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  font-size: 0.65rem !important;
+  min-width: 1.15rem !important;
+  height: 1.15rem !important;
+  line-height: 1.15rem !important;
+  padding: 0 !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .user-chip {
@@ -250,9 +326,24 @@ a {
   color: #1d4ed8;
 }
 
-.search-box,
+/* Cari dan gantikan bahagian ini di dalam fail CSS anda */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-box i {
+  position: absolute;
+  left: 0.75rem; /* Letakkan ikon sedikit ke dalam dari bucu kiri */
+  color: var(--muted);
+  pointer-events: none; /* Supaya input tetap boleh diklik walaupun terkena ikon */
+}
+
 .search-box input {
   width: 100%;
+  padding-left: 2.5rem !important; /* ⚠️ UTAMA: Memberi ruang 2.5rem di kiri supaya teks tidak bertindih */
 }
 
 .voucher-grid {
@@ -435,14 +526,78 @@ a {
 
 @media (max-width: 820px) {
   .topbar {
-    align-items: flex-start;
-    flex-direction: column;
+    display: grid !important;
+    grid-template-columns: 1fr auto; /* Kiri: Logo (ambil ruang fleksibel), Kanan: Actions */
+    row-gap: 0.75rem;
+    column-gap: 0.25rem;
+    padding: 0.8rem 0.75rem; /* Kurangkan padding tepi sedikit untuk skrin kecil */
+    overflow: hidden; /* Menghalang keseluruhan topbar daripada melimpah keluar */
   }
 
+  /* 2. Rapatkan elemen Actions dan elakkan susunan pecah */
+  .topbar-actions {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem; /* Rapatkan gap antara ikon, teks & butang logout */
+    margin-left: auto;
+    max-width: 100%;
+  }
+
+  /* 3. OPTIMUMKAN komponen penukar bahasa PrimeReact pada mobile */
+  .topbar-actions .p-selectbutton .p-button {
+    padding: 0.25rem 0.4rem !important; /* Kecilkan lagi butang EN/BM */
+    font-size: 0.75rem !important;
+  }
+
+  /* 4. SEKAT teks nama atau mata daripada memanjang tanpa kawalan */
+  .topbar-actions .user-chip {
+    gap: 0.25rem;
+    font-size: 0.85rem; /* Kecilkan teks nama "aisha" */
+  }
+
+  /* Menyembunyikan nama pada skrin yang tersangat kecil (< 380px) jika masih padat */
+  @media (max-width: 380px) {
+    .topbar-actions .user-chip span:not(.points) {
+      display: none; /* Sembunyikan teks nama "aisha", kekalkan ikon/mata sahaja */
+    }
+  }
+
+  .points {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem; /* Kecilkan saiz tulisan "1500 mata" */
+    white-space: nowrap;
+  }
+
+  /* 5. Pastikan menu navigasi bawah tidak terjejas */
   .nav-links {
-    flex-wrap: wrap;
+    grid-row: 2;
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border);
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Skrol lancar di iOS */
   }
 
+
+  /* Mengatasi pepijat Google Translate yang memaksa elemen pecah menegak */
+  .skiptranslate {
+    display: none !important;
+  }
+  
+  body {
+    top: 0 !important;
+    position: static !important;
+  }
+
+  /* Sisa kod grid halaman anda yang lain dikekalkan asal */
   .login-screen,
   .details-layout,
   .cart-layout,
@@ -456,6 +611,65 @@ a {
 
   .cart-item {
     grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  /* ==========================================
+     TAMBAHAN UNTUK MEJA/TABLE RESPONSIF (MERN)
+     ========================================== */
+
+  /* 1. Sembunyikan Header Desktop Table */
+  .responsive-table .p-datatable-thead {
+    display: none !important;
+  }
+
+  /* 2. Tukar setiap baris (row) menjadi bentuk Kad/Box */
+  .responsive-table .p-datatable-tbody > tr {
+    display: block !important;
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  }
+
+  /* 3. Susun setiap sel (cell) menegak ke bawah (Flexbox Row-Space-Between) */
+  .responsive-table .p-datatable-tbody > tr > td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border: none !important;
+    padding: 0.6rem 0 !important;
+    text-align: right !important;
+    width: 100% !important;
+  }
+
+  /* 4. Letak label nama column secara dinamik di sebelah kiri sel */
+  .responsive-table .p-datatable-tbody > tr > td::before {
+    content: attr(data-p-column-title);
+    font-weight: 700;
+    color: var(--muted);
+    text-align: left;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* 5. Kemaskan butang aksi (Edit/Delete) supaya rapat ke kanan */
+  .responsive-table .table-actions {
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  /* 6. Butang "New Voucher" penuhi skrin pada mobile */
+  .section-title-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center;
+  }
+
+  .section-title-row button {
+    width: 100% !important;
   }
 
   .history-item {
